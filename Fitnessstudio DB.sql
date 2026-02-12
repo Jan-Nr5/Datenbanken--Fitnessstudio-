@@ -3,15 +3,15 @@ CREATE TABLE `person` (
   `vorname` varchar(100) NOT NULL,
   `nachname` varchar(100) NOT NULL,
   `geburtsdatum` date,
-  `email` varchar(254) UNIQUE NOT NULL,
+  `email` varchar(254)  NOT NULL,
   `telefon` varchar(20),
   `strasse` varchar(120),
   `hausnr` varchar(10),
   `plz` char(5),
   `ort` varchar(100),
-  `land` char(2),
+  `land` char(52),
 
-  CONSTRAINT chk_person_plz
+  CONSTRAINT check_person_plz
     CHECK (plz IS NULL OR plz REGEXP '^[0-9]{5}$')
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE `termin` (
   `startzeit` datetime NOT NULL,
   `endzeit` datetime NOT NULL,
 
-  CONSTRAINT chk_termin_zeit
+  CONSTRAINT check_termin_zeit
     CHECK (`endzeit` > `startzeit`)
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE `checkin` (
   `checkin_zeit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `checkout_zeit` datetime,
 
-  CONSTRAINT chk_checkout_zeit
+  CONSTRAINT check_checkout_zeit
     CHECK (
         `checkout_zeit` IS NULL 
         OR `checkout_zeit` > `checkin_zeit`
